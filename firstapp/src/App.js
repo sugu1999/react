@@ -1,3 +1,6 @@
+import './App.css'
+import img1 from './images/2.jpeg'
+
 function App() {
   //state
   let username = "Rajesh";
@@ -17,8 +20,10 @@ function App() {
 
   //return react element
   return (
-    <div>
-      <h1>Hello React</h1>
+    <div className="main">
+      <h1 className='text-danger display-2 bg-warning'>Hello React</h1>
+      <img src="https://media.istockphoto.com/id/1439425791/photo/digital-technology-software-development-concept-coding-programmer-working-on-laptop-with.webp?b=1&s=170667a&w=0&k=20&c=c0Q8u1Y5yFJCDxltBZd0RAn1g01Se6qCjZGS5q9XLZs=" width="400px" alt="" />
+      <img src={img1} className='w-50' alt="" />
       <h2>Username : {username}</h2>
       <h2>Email : {email}</h2>
       <h2>Mobile: {mobile}</h2>
