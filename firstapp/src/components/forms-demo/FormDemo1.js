@@ -3,13 +3,14 @@ import { useState } from "react";
 
 function FormDemo1() {
   let [user, setUser] = useState({
-    username: "",
-    password: "",
-    email: "",
-    state: "",
-    css: false,
-    react: false,
+      skills:['js','java'],
+      jsTechs:['react','angular'],
+      javaTechs:['spring','hibernate']
   });
+
+
+  let [userSelectedTech,setUserSelectedTech]=useState([])
+ 
 
   let [err, setErr] = useState({});
 
@@ -21,19 +22,29 @@ function FormDemo1() {
         ? event.target.checked
         : event.target.value;
     setUser({ ...user, [name]: value });
+
+    if(value==='js'){
+      setUserSelectedTech(user.jsTechs)
+    }
+    if(value==='java'){
+      setUserSelectedTech(user.javaTechs)
+    }
+
+
+
   }
 
   function handleFormSubmit(event) {
     event.preventDefault();
-
+    console.log(user)
     //call validation functions
-    let errors = validateUser(user);
-    if (Object.keys(errors).length === 0) {
-      setErr({});
-      console.log(user);
-    } else {
-      setErr(errors);
-    }
+  //  let errors = validateUser(user);
+    // if (Object.keys(errors).length === 0) {
+    //   setErr({});
+    //   console.log(user);
+    // } else {
+    //   setErr(errors);
+    // }
   }
 
   // console.log(err)
@@ -44,91 +55,24 @@ function FormDemo1() {
 
       {/* form */}
       <form className="w-50 mx-auto mt-5" onSubmit={handleFormSubmit}>
-        {/* username */}
+
         <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            className="form-control"
-            onChange={handleUser}
-          />
+          <input type="radio" name="selectedTech"  value={user.skills[0]} onChange={handleUser}  />
+          <label htmlFor="">{user.skills[0]} </label>
         </div>
-        {/* username validation err message */}
-        {err.username && <p className="text-danger">{err.username}</p>}
-        {/* password */}
         <div className="mb-3">
-          <label htmlFor="password" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            className="form-control"
-            onChange={handleUser}
-          />
+          <input type="radio" name="selectedTech"  value={user.skills[1]} onChange={handleUser} />
+          <label htmlFor="">{user.skills[1]} </label>
         </div>
-        {/* email */}
+
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            className="form-control"
-            onChange={handleUser}
-          />
-        </div>
-        {/* select */}
-        <div className="mb-3">
-          <label htmlFor="state">Select a state</label>
-          <select
-            name="state"
-            id="state"
-            className="form-select"
-            onChange={handleUser}
-          >
-            <option value="telangana">Telangana</option>
-            <option value="ap">Andhra pradesh</option>
-            <option value="tamilnadu">Tamilnadu</option>
+          <select name="tech" id="" className="form-select">
+            {
+              userSelectedTech.map(t=><option key={t}>{t}</option>)
+            }
           </select>
         </div>
-        {/* skills */}
-        <div className="mb-3">
-          <label>Select your skills</label>
-          {/* css */}
-          <div className="form-check">
-            <input
-              type="checkbox"
-              name="css"
-              id="css"
-              className="form-check-input"
-              onChange={handleUser}
-            />
-            <label htmlFor="css" className="form-check-label">
-              CSS
-            </label>
-          </div>
-          {/* react */}
-          <div className="form-check">
-            <input
-              type="checkbox"
-              name="react"
-              id="react"
-              className="form-check-input"
-              onChange={handleUser}
-            />
-            <label htmlFor="react" className="form-check-label">
-              ReactJS
-            </label>
-          </div>
-        </div>
+
         {/* submit button */}
         <button type="submit" className="btn btn-success d-block mx-auto">
           Login
@@ -147,7 +91,7 @@ function validateUser(user) {
   if (!user.username) {
     errors.username = "Username is required";
   }
-  if (user.username.length!=0 && user.username.length < 4) {
+  if (user.username.length != 0 && user.username.length < 4) {
     errors.username = "Min length should be 4";
   }
   return errors;

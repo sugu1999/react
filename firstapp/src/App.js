@@ -1,5 +1,6 @@
 import "./App.css";
-import FormDemo1 from "./components/forms-demo/FormDemo1";
+
+import ManageTasks from "./components/to-do/ManageTasks";
 
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
   return (
     <div className="main container">
     
-      <FormDemo1 />
+      <ManageTasks />
     </div>
   );
 }
