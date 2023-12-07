@@ -1,14 +1,15 @@
-import React from "react";
-import { useState } from "react";
+import {useContext} from "react";
+import {tasksContext} from '../../contexts/todoContext'
 import { useForm } from "react-hook-form";
 
-function AddTask(props) {
+function AddTask() {
   
+ let [tasks,setTasks]= useContext(tasksContext)
 
   let { register, handleSubmit } = useForm();
 
   function addTask(newTask) {
-    props.setTasks([...props.tasks, newTask.task]);
+    setTasks([...tasks, newTask.task]);
   }
 
   return (
