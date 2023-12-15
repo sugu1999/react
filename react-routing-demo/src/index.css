@@ -14,6 +14,8 @@ code {
 
 
 .active{
-  color:white !important;
-  background-color: coral;
+  color:rgba(162, 189, 9, 0.985) !important;
+  background-color: rgb(188, 19, 98);
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
 }

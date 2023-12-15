@@ -8,6 +8,7 @@ import Technologies from "./components/Technologies";
 import Java from './components/Java'
 import Nodejs from './components/Nodejs'
 import Vue from './components/Vue'
+import UserProfile from "./components/UserProfile";
 
 function App() {
   //create BrowserRouter object
@@ -27,6 +28,10 @@ function App() {
         {
           path: "login",
           element: <Login />,
+        },
+        {
+          path:'user-profile',
+          element:<UserProfile />
         },
         {
           path: "technologies",
