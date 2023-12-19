@@ -98,6 +98,20 @@ function Register() {
           />
         </div>
 
+         {/* dprofile pic*/}
+         <div className="mb-4">
+          <label htmlFor="profileImg" className="form-label">
+            Enter path of profile image
+          </label>
+          <input
+            type="text"
+            id="profileImg"
+            {...register("profileImg")}
+            className="form-control mb-4"
+            placeholder="Paste profile image URL here..."
+          />
+        </div>
+
         <button className="btn btn-success d-block mx-auto">Register</button>
       </form>
     </div>
