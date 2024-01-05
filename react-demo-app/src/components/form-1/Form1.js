@@ -1,78 +1,83 @@
-import {useState} from 'react'
+import { Fragment, useState } from "react";
 
 function Form1() {
+  let [stateDetails, setStateDetails] = useState([
+    { state: "telangana", districts: ["warangal", "rangareddy"] },
+    { state: "andhra pradesh", districts: ["guntur", "prakasam"] },
+  ]);
 
-    let [user,setUser]=useState({
-        username:'',
-        password:'',
-        email:'',
-        acknowledge:''
-    })
+  let [selectedState, setSelectedState] = useState("");
+  let [districtsOfSelectedState, setDistrictsOFSelectedState] = useState([]);
+  let [selectedDistricts, setSelectedDistricts] = useState([]);
 
-    let [err,setErr]=useState({})
+  let [err, setErr] = useState({});
 
-    //form value handler
-    function handleUserData(event){
-        // console.log(event.target.type)
-        // console.log(event.target.name)
-        // console.log(event.target.value)
-        let name=event.target.name;
-        let value=event.target.type==='checkbox'?event.target.checked:event.target.value;
-        setUser({...user,[name]:value})
+  //form value handler
+  function handleStateData(event) {
+    let value = event.target.value;
+    for (let st of stateDetails) {
+      if (st.state === value) {
+        setSelectedState(value);
+        setDistrictsOFSelectedState(st.districts);
+      }
     }
+    setSelectedDistricts([]);
+  }
 
-    //form submission handler
-    function handleFormSubmit(event){
-        event.preventDefault()
-        //validate user
-       let er= validateUser(user)
-       
-       //if no error occurred
-       if(Object.keys(er).length===0){
-        console.log(user)
-        setUser({...user,username:'',password:''})
-       }else{
-        //update err
-        setErr(er)
-       }
-    }
+  function handleSelectedDist(e) {
+    setSelectedDistricts([...selectedDistricts, e.target.value]);
+  }
 
-  
+  //form submission handler
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    console.log({ selectedState, selectedDistricts });
+  }
 
   return (
-    <div>     
-        <form  className="w-50 mx-auto mt-5" onSubmit={handleFormSubmit} >
-            <input type="text" value={user.username} name="username"  className="form-control mb-3" onChange={handleUserData}  />
-            {/* username validation error messages */}
-            {err.username && <p className='text-danger lead'>{err.username}</p>}
-            <input type="password" value={user.password} name="password"  className="form-control mb-3" onChange={handleUserData} />
-            <input type="email"  value={user.email} name="email"  className="form-control mb-3" onChange={handleUserData} />
-            <input type="checkbox" name="acknowledge" id="acknowledge"  onChange={handleUserData} />
-            <label htmlFor="acknowledge">Acknowledge</label>
-            <button className="btn btn-success" type='submit'>Register</button>
-        </form>
+    <div>
+      <form className="w-50 mx-auto mt-5" onSubmit={handleFormSubmit}>
+        <select name="state" onChange={handleStateData} defaultValue="">
+          <option value="" disabled>
+            Select a state
+          </option>
+          {stateDetails.map((stateObj) => (
+            <option key={stateObj.state}>{stateObj.state}</option>
+          ))}
+        </select>
+
+        {districtsOfSelectedState.map((dt) => (
+          <Fragment key={dt}>
+            <input
+              type="checkbox"
+              id={dt}
+              onChange={handleSelectedDist}
+              value={dt}
+            />
+            <label htmlFor={dt}>{dt}</label>
+          </Fragment>
+        ))}
+        <button className="btn btn-success" type="submit">
+          Submit
+        </button>
+      </form>
     </div>
-  )
+  );
 }
 
-export default Form1
+export default Form1;
 
+// function validateUser(user) {
+//   // console.log(user)
+//   let errors = {};
 
+//   //validation checking
+//   //if username is empty
+//   if (!user.username) {
+//     errors.username = "Username is required";
+//   } else if (user.username.length < 4) {
+//     errors.username = "MIn length should be 4";
+//   }
 
-
-function validateUser(user){
-   // console.log(user)
-    let errors={};
-
-    //validation checking
-    //if username is empty
-    if(!user.username){
-        errors.username='Username is required'
-    }
-
-    else if(user.username.length<4){
-        errors.username='MIn length should be 4'
-    }
-
-    return errors;
-}
+//   return errors;
+// }
