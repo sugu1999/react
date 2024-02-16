@@ -14,7 +14,7 @@ function AddTask() {
 
   return (
     <div>
-      <p className="fs-1 lead text-center text-primary">Add Task</p>
+      <p className="fs-1 lead text-center text-danger">Add Task</p>
       <form onSubmit={handleSubmit(addTask)}>
         <input
           type="text"
